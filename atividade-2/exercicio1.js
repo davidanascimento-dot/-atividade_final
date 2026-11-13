@@ -12,12 +12,21 @@ function testarFrete(valor, esperado) {
     }
 }
 
-if (require.main === module) {
+function executarExemplos() {
   testarFrete(200, true);
   testarFrete(80, false);
   testarFrete(150, true);
 }
 
+function executarSePrincipal(ehPrincipal) {
+  if (ehPrincipal) {
+    executarExemplos();
+  }
+}
+
+executarSePrincipal(require.main === module);
+
+/* istanbul ignore else */
 if (typeof module !== "undefined") {
-  module.exports = { verificarFreteGratis, testarFrete };
+  module.exports = { verificarFreteGratis, testarFrete, executarSePrincipal };
 }

@@ -24,6 +24,7 @@ console.log(cadastro("ana", 17, "ana@mail.com")); // DADOS_INVALIDOS
 console.log(cadastro("ana", 18, "ana@mail.com")); // CADASTRO_OK (limite!)
 console.log(cadastro("ana", 20, "anamail.com"));  // DADOS_INVALIDOS
 
+/* istanbul ignore else */
 if (typeof module !== "undefined") {
     module.exports = cadastro;
 }

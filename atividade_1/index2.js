@@ -20,6 +20,7 @@ function contarProdutos(categoriaBuscada) {
 
 console.log(contarProdutos("eletronicos"));
 
+/* istanbul ignore else */
 if (typeof module !== "undefined") {
     module.exports = contarProdutos;
 }

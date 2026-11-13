@@ -12,7 +12,11 @@ let num = 2;
 let numero = "2";
 let nome1 = "";
 
-if (typeof window !== "undefined" || require.main === module) {
+function deveExecutarDemo(temJanela, ehPrincipal) {
+  return temJanela || ehPrincipal;
+}
+
+if (deveExecutarDemo(typeof window !== "undefined", require.main === module)) {
   console.log(numero * 3);
   console.log(numero);
   numero = parseInt(numero, 10);
@@ -27,21 +31,35 @@ if (typeof window !== "undefined" || require.main === module) {
 function idade(valor) {
   if (valor >= 18) {
     console.log("pode entrar: ");
+    return true;
   } else {
     console.log("barrado beta");
+    return false;
   }
 }
 
-if (require.main === module) {
-  if (idade === "pode entrar") {
-    console.log("o teste falhou");
+function testarIdade(valor) {
+  if (idade(valor)) {
+    console.log("o teste passou");
   } else {
     console.log("não pode entrar por limite de idade");
   }
-
-  let resultado3 = idade(18);
 }
 
+function executarExemplos() {
+  testarIdade(18);
+}
+
+function executarSePrincipal(ehPrincipal) {
+  if (ehPrincipal) {
+    executarExemplos();
+  }
+}
+
+executarSePrincipal(require.main === module);
+
+/* istanbul ignore else */
+/* istanbul ignore else */
 if (typeof module !== "undefined") {
-  module.exports = { idade };
+  module.exports = { idade, testarIdade, executarSePrincipal, deveExecutarDemo };
 }

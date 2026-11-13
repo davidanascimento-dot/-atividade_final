@@ -12,60 +12,39 @@ function validarCadastro(token,tempoSegundo) {
 
 }   
 
-//SUITE DE TESTES
-
-if(validarCadastro("token123", 300) === "SESSAO_ATIVA") {
-    console.log("caso 1 passou: cadastro válido");
-}else {
-    console.log("caso 1 falhou ");
-}
-
-//SUITE DE TESTE 2 
-
-if(validarCadastro(null,300) === "SESSAO_EXPIRADA"){
-console.log("caso2 passou: cadastro válido");
-}else{
-console.log("caso2 falhou");
-}
-
-// SUITE DE TESTE 3(caso tenha valor "undefined"no suite de teste quando tem udefined e SESSAO_EXPIRDA O CONTADOR SÓ VALIDA NO 0 ACIMA DISSO NEGA" )
-
-if(validarCadastro("token123", 0) === "SESSAO_EXPIRADA"){
-console.log("caso3 passou: detectou sessão expirada limite(0s)");
-}else{
-console.log("caso3 falhou: cadastro falhou!");
-}
-
- function calculoFrete(peso,estado) {
-  
-    if(peso <= 0 || !estado <= 0){
-        console.log("erro de entrada: peso ou estado inválido");
-return -1;
+function calculoFrete(peso, estado) {
+    if (peso <= 0 || !estado) {
+        return -1;
     }
 
-    let valorFrete = 0
+    let valorFrete = estado === "BA" ? 10 + (2 * peso) : 25 + (5 * peso);
 
-    
-
-    if(estado === "BA" ){
-console.log(" calculando entrega em BA");
-valorFrete = 10 + (2 * peso);
-    }else {
-        console.log(`calculando frete para outro estado(${estado}) `)
-        valorFrete = 25 + (5 * peso);
+    if (peso > 20) {
+        valorFrete += 50;
     }
-    
-if(peso > 20){
-    valorFrete += 50;
-    console.log("peso acima de 20kg, frete adicional de 50 reais aplicado");
 
+    return valorFrete;
 }
 
-return valorFrete;
+function executarExemplos() {
+    console.log(validarCadastro("token123", 300));
+    console.log(validarCadastro(null, 300));
+    console.log(validarCadastro("token123", 0));
+    console.log(calculoFrete(10, "BA"));
+    console.log(calculoFrete(10, "SP"));
+    console.log(calculoFrete(21, "BA"));
+}
 
- }
+function executarSePrincipal(ehPrincipal) {
+    if (ehPrincipal) {
+        executarExemplos();
+    }
+}
+
+executarSePrincipal(require.main === module);
 
 module.exports = {
     validarCadastro,
-    calculoFrete
+    calculoFrete,
+    executarSePrincipal
 };

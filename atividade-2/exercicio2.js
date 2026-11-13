@@ -16,12 +16,21 @@ function testarSenha(senha, esperado) {
     }
 }
 
-if (require.main === module) {
+function executarExemplos() {
   testarSenha("senhasegura123", "OK");
   testarSenha("123", "CURTA");
   testarSenha("abc123", "OK");
 }
 
+function executarSePrincipal(ehPrincipal) {
+  if (ehPrincipal) {
+    executarExemplos();
+  }
+}
+
+executarSePrincipal(require.main === module);
+
+/* istanbul ignore else */
 if (typeof module !== "undefined") {
-  module.exports = { validarSenha, testarSenha };
+  module.exports = { validarSenha, testarSenha, executarSePrincipal };
 }

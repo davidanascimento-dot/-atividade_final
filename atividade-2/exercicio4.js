@@ -20,12 +20,21 @@ function testarServidor(temp, esperado) {
     }
 }
 
-if (require.main === module) {
+function executarExemplos() {
   testarServidor(35, "NORMAL");
   testarServidor(65, "ATENCAO");
   testarServidor(90, "PERIGO");
 }
 
+function executarSePrincipal(ehPrincipal) {
+  if (ehPrincipal) {
+    executarExemplos();
+  }
+}
+
+executarSePrincipal(require.main === module);
+
+/* istanbul ignore else */
 if (typeof module !== "undefined") {
-  module.exports = { verificarServidor, testarServidor };
+  module.exports = { verificarServidor, testarServidor, executarSePrincipal };
 }

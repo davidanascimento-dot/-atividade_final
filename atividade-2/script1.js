@@ -37,7 +37,7 @@ function testarSubirDeNivel(pontos, esperado) {
     }
 }
 
-if (require.main === module) {
+function executarExemplos() {
   testarCalcularTotal(120, "CIMATEC", 110);
   testarCalcularTotal(100, undefined, 100);
   testarSubirDeNivel(50, "NÍVEL 1");
@@ -45,6 +45,15 @@ if (require.main === module) {
   testarSubirDeNivel(150, "NÍVEL 2");
 }
 
+function executarSePrincipal(ehPrincipal) {
+  if (ehPrincipal) {
+    executarExemplos();
+  }
+}
+
+executarSePrincipal(require.main === module);
+
+/* istanbul ignore else */
 if (typeof module !== "undefined") {
-  module.exports = { calcularTotal, testarCalcularTotal, subirDeNivel, testarSubirDeNivel };
+  module.exports = { calcularTotal, testarCalcularTotal, subirDeNivel, testarSubirDeNivel, executarSePrincipal };
 }

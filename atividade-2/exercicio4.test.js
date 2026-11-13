@@ -15,4 +15,21 @@ describe('exercicio4 - verificarServidor', () => {
   test('retorna NORMAL para temp < 50', () => {
     expect(verificarServidor(35)).toBe('NORMAL');
   });
+
+  test('testa resultados corretos e incorretos e executa exemplos sob demanda', () => {
+    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+    const { testarServidor, executarSePrincipal } = require('./exercicio4');
+
+    testarServidor(35, 'NORMAL');
+    testarServidor(90, 'NORMAL');
+    expect(logSpy).toHaveBeenNthCalledWith(1, 'Teste aprovado:', 35, '°C =>', 'NORMAL');
+    expect(logSpy).toHaveBeenNthCalledWith(2, 'Teste falhou:', 90, '°C =>', 'PERIGO', '(esperado:', 'NORMAL)');
+
+    logSpy.mockClear();
+    executarSePrincipal(false);
+    expect(logSpy).not.toHaveBeenCalled();
+    executarSePrincipal(true);
+    expect(logSpy).toHaveBeenCalledTimes(3);
+    logSpy.mockRestore();
+  });
 });

@@ -22,6 +22,7 @@ console.log(compra(totalMacaBrigadeiro)); // Passou do limite → COMPRA_VALOR_N
 console.log(compra(maca));                // 90 → COMPRA_COM_CUPOM
 console.log(compra(comida));              // 100 → COMPRA_COM_CUPOM
 
+/* istanbul ignore else */
 if (typeof module !== "undefined") {
     module.exports = compra;
 }
